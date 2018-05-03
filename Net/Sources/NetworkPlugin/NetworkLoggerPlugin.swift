@@ -1,5 +1,5 @@
 //
-//  NetworkCurlPlugin.swift
+//  NetworkLoggerPlugin.swift
 //  Net
 //
 //  Created by Arthur Myronenko on 5/3/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class NetworkCurlPlugin: NetworkPlugin {
+final class NetworkLoggerPlugin: NetworkPlugin {
 
   typealias Logger = (String) -> Void
 
@@ -22,6 +22,13 @@ final class NetworkCurlPlugin: NetworkPlugin {
     let curlLogMessage = String(curlString(from: urlRequest).prefix(500))
     log(curlLogMessage)
     return urlRequest
+  }
+
+  func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
+    let stringData = String(data: response.data, encoding: .utf8) ?? "Invalid"
+    let message = "Response: [\(response.statusCode)] \(stringData)"
+    log(message)
+    return response
   }
 
   private func curlString(from request: URLRequest) -> String {

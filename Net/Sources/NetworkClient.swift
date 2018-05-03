@@ -44,6 +44,9 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
         guard let `self` = self else { return Observable.empty() }
         return self.executeRequest(request)
       }
+      .map { [weak self] response -> NetworkResponse in
+        return self?.plugin.modifyResponse(response) ?? response
+      }
       .flatMapLatest { [weak self] response -> Observable<T.Response> in
         guard let `self` = self else { return Observable.empty() }
         let decoder = JSONDecoder()
