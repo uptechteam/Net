@@ -24,11 +24,6 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
   private let errorResponseType: ErrorResponse.Type
   private let log: ErrorLogger
 
-  private struct Response {
-    let data: Data
-    let statusCode: Int
-  }
-
   init(
     baseURL: URL,
     plugins: [NetworkPlugin] = [],
@@ -45,7 +40,7 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
 
   func request<T: TargetType>(_ target: T) -> Observable<T.Response> {
     return buildRequest(from: target)
-      .flatMapLatest { [weak self] request -> Observable<Response> in
+      .flatMapLatest { [weak self] request -> Observable<NetworkResponse> in
         guard let `self` = self else { return Observable.empty() }
         return self.executeRequest(request)
       }
@@ -84,9 +79,9 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
   ///
   /// - Parameter request: `URLRequest` to execute.
   /// - Returns: `SignalProducer` with a received `Response`. All errors are mapped into `NetworkError.unknown`.
-  private func executeRequest(_ request: URLRequest) -> Observable<Response> {
+  private func executeRequest(_ request: URLRequest) -> Observable<NetworkResponse> {
     return session.rx.response(request: request)
-      .map { response, data in Response(data: data, statusCode: response.statusCode) }
+      .map { response, data in NetworkResponse(statusCode: response.statusCode, data: data) }
       .catchError { error in Observable.error(NetworkError.unknown(message: "\(error)")) }
   }
 
@@ -96,7 +91,7 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
   /// - Parameter response: `Response` object to parse.
   /// - Returns: `apiError` if could parse error from `response` or status code is unsuccessfull,
   /// `serializationError` if status code is successfull,
-  private func tryParseError(from response: Response) -> NetworkError {
+  private func tryParseError(from response: NetworkResponse) -> NetworkError {
       let decoder = JSONDecoder()
       do {
         let errorResponse = try decoder.decode(errorResponseType, from: response.data)

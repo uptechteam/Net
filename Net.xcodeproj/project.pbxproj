@@ -18,6 +18,10 @@
 		8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2467209B0904002E7ACF /* HTTPMethod.swift */; };
 		8E7C246E209B0904002E7ACF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2468209B0904002E7ACF /* NetworkError.swift */; };
 		8E7C2470209B0F19002E7ACF /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C246F209B0F19002E7ACF /* RxCocoa.framework */; };
+		8E7C2474209B1259002E7ACF /* NetworkCurlPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2473209B1259002E7ACF /* NetworkCurlPlugin.swift */; };
+		8E7C2477209B1388002E7ACF /* NetworkResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2476209B1388002E7ACF /* NetworkResponseHandler.swift */; };
+		8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */; };
+		8E7C247B209B32C3002E7ACF /* NetworkResponseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247A209B32C3002E7ACF /* NetworkResponseLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,10 @@
 		8E7C2467209B0904002E7ACF /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8E7C2468209B0904002E7ACF /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8E7C246F209B0F19002E7ACF /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E7C2473209B1259002E7ACF /* NetworkCurlPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCurlPlugin.swift; sourceTree = "<group>"; };
+		8E7C2476209B1388002E7ACF /* NetworkResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseHandler.swift; sourceTree = "<group>"; };
+		8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		8E7C247A209B32C3002E7ACF /* NetworkResponseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,10 +130,30 @@
 				8E7C2467209B0904002E7ACF /* HTTPMethod.swift */,
 				8E7C2465209B0904002E7ACF /* NetworkClient.swift */,
 				8E7C2468209B0904002E7ACF /* NetworkError.swift */,
-				8E7C2463209B0904002E7ACF /* NetworkPlugin.swift */,
+				8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */,
+				8E7C2472209B122E002E7ACF /* NetworkPlugin */,
+				8E7C2475209B1373002E7ACF /* NetworkResponseHandler */,
 				8E7C2464209B0904002E7ACF /* TargetType.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		8E7C2472209B122E002E7ACF /* NetworkPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				8E7C2463209B0904002E7ACF /* NetworkPlugin.swift */,
+				8E7C2473209B1259002E7ACF /* NetworkCurlPlugin.swift */,
+			);
+			path = NetworkPlugin;
+			sourceTree = "<group>";
+		};
+		8E7C2475209B1373002E7ACF /* NetworkResponseHandler */ = {
+			isa = PBXGroup;
+			children = (
+				8E7C2476209B1388002E7ACF /* NetworkResponseHandler.swift */,
+				8E7C247A209B32C3002E7ACF /* NetworkResponseLogger.swift */,
+			);
+			path = NetworkResponseHandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,11 +266,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7C246A209B0904002E7ACF /* TargetType.swift in Sources */,
+				8E7C2474209B1259002E7ACF /* NetworkCurlPlugin.swift in Sources */,
 				8E7C246C209B0904002E7ACF /* ContentType.swift in Sources */,
 				8E7C2469209B0904002E7ACF /* NetworkPlugin.swift in Sources */,
 				8E7C246E209B0904002E7ACF /* NetworkError.swift in Sources */,
+				8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */,
 				8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */,
+				8E7C2477209B1388002E7ACF /* NetworkResponseHandler.swift in Sources */,
 				8E7C246B209B0904002E7ACF /* NetworkClient.swift in Sources */,
+				8E7C247B209B32C3002E7ACF /* NetworkResponseLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
