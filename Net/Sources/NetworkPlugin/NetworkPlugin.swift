@@ -8,23 +8,23 @@
 
 import Foundation
 
-protocol NetworkPlugin {
+public protocol NetworkPlugin {
   func modifyRequest(_ urlRequest: URLRequest) -> URLRequest
   func modifyResponse(_ response: NetworkResponse) -> NetworkResponse
 }
 
-final class CompositePlugin {
+public final class CompositePlugin: NetworkPlugin {
   private let plugins: [NetworkPlugin]
 
-  init(plugins: [NetworkPlugin]) {
+  public init(plugins: [NetworkPlugin]) {
     self.plugins = plugins
   }
 
-  func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
+  public func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
     return plugins.reduce(urlRequest) { request, plugin in plugin.modifyRequest(request) }
   }
 
-  func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
+  public func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
     return plugins.reduce(response) { response, plugin in plugin.modifyResponse(response) }
   }
 }

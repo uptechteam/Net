@@ -10,13 +10,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol NetworkClientProtocol {
+public protocol NetworkClientProtocol {
   func request<T: TargetType>(_ target: T) -> Observable<T.Response>
 }
 
-class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: Decodable & CustomStringConvertible {
+public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: Decodable & CustomStringConvertible {
 
-  typealias ErrorLogger = (String) -> Void
+  public typealias ErrorLogger = (String) -> Void
 
   private let baseURL: URL
   private let plugin: CompositePlugin
@@ -24,7 +24,7 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
   private let errorResponseType: ErrorResponse.Type
   private let log: ErrorLogger
 
-  init(
+  public init(
     baseURL: URL,
     plugins: [NetworkPlugin] = [],
     session: URLSession = URLSession(configuration: URLSessionConfiguration.default),
@@ -38,7 +38,7 @@ class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: D
     self.log = logger
   }
 
-  func request<T: TargetType>(_ target: T) -> Observable<T.Response> {
+  public func request<T: TargetType>(_ target: T) -> Observable<T.Response> {
     return buildRequest(from: target)
       .flatMapLatest { [weak self] request -> Observable<NetworkResponse> in
         guard let `self` = self else { return Observable.empty() }

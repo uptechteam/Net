@@ -8,23 +8,23 @@
 
 import Foundation
 
-final class NetworkLoggerPlugin: NetworkPlugin {
+public final class NetworkLoggerPlugin: NetworkPlugin {
 
-  typealias Logger = (String) -> Void
+  public typealias Logger = (String) -> Void
 
   private let log: Logger
 
-  init(logger: @escaping Logger = { print($0) }) {
+  public init(logger: @escaping Logger = { print($0) }) {
     self.log = logger
   }
 
-  func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
+  public func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
     let curlLogMessage = String(curlString(from: urlRequest).prefix(500))
     log(curlLogMessage)
     return urlRequest
   }
 
-  func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
+  public func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
     let stringData = String(data: response.data, encoding: .utf8) ?? "Invalid"
     let message = "Response: [\(response.statusCode)] \(stringData)"
     log(message)

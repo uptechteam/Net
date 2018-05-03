@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TargetType {
+public protocol TargetType {
   associatedtype Response: Decodable
 
   var path: String { get }

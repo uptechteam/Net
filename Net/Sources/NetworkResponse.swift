@@ -9,6 +9,6 @@
 import Foundation
 
 public struct NetworkResponse {
-  let statusCode: Int
-  let data: Data
+  public let statusCode: Int
+  public let data: Data
 }

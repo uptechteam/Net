@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol GetTargetType: TargetType { }
+public protocol GetTargetType: TargetType { }
 
-extension GetTargetType {
+public extension GetTargetType {
   var method: HTTPMethod {
     return .get
   }

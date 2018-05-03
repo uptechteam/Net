@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum ContentType: String {
+public enum ContentType: String {
   case json = "application/json; charset=utf-8"
 }

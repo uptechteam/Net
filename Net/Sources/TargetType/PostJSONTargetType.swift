@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol PostJSONTargetType: TargetType {
+public protocol PostJSONTargetType: TargetType {
   associatedtype Parameters: Encodable
   var parameters: Parameters { get }
 }
 
-extension PostJSONTargetType {
+public extension PostJSONTargetType {
   var method: HTTPMethod {
     return .post
   }
