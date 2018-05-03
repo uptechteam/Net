@@ -10,6 +10,7 @@
 		8E7C244F209AF37A002E7ACF /* Net.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C2445209AF37A002E7ACF /* Net.framework */; };
 		8E7C2454209AF37A002E7ACF /* NetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2453209AF37A002E7ACF /* NetTests.swift */; };
 		8E7C2456209AF37A002E7ACF /* Net.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E7C2448209AF37A002E7ACF /* Net.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8E7C2461209AF3CA002E7ACF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C2460209AF3CA002E7ACF /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		8E7C244E209AF37A002E7ACF /* NetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2453209AF37A002E7ACF /* NetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetTests.swift; sourceTree = "<group>"; };
 		8E7C2455209AF37A002E7ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E7C2460209AF3CA002E7ACF /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E7C2461209AF3CA002E7ACF /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +59,7 @@
 				8E7C2447209AF37A002E7ACF /* Net */,
 				8E7C2452209AF37A002E7ACF /* NetTests */,
 				8E7C2446209AF37A002E7ACF /* Products */,
+				8E7C245F209AF3CA002E7ACF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +88,14 @@
 				8E7C2455209AF37A002E7ACF /* Info.plist */,
 			);
 			path = NetTests;
+			sourceTree = "<group>";
+		};
+		8E7C245F209AF3CA002E7ACF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E7C2460209AF3CA002E7ACF /* RxSwift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
