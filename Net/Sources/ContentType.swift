@@ -10,4 +10,5 @@ import Foundation
 
 public enum ContentType: String {
   case json = "application/json; charset=utf-8"
+  case urlEncoded = "application/x-www-form-urlencoded"
 }
