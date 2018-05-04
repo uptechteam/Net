@@ -1,6 +1,6 @@
 //
 //  NetworkClient.swift
-//  Strimmerz
+//  Net
 //
 //  Created by Arthur Myronenko on 1/29/18.
 //  Copyright © 2018 UPTech Team. All rights reserved.
