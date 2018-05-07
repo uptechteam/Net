@@ -26,9 +26,9 @@ public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResp
 
   public init(
     baseURL: URL,
+    errorResponseType: ErrorResponse.Type,
     plugins: [NetworkPlugin] = [],
     session: URLSession = URLSession(configuration: URLSessionConfiguration.default),
-    errorResponseType: ErrorResponse.Type,
     logger: @escaping ErrorLogger = { print($0) }
     ) {
     self.baseURL = baseURL
@@ -49,16 +49,13 @@ public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResp
       }
       .flatMapLatest { [weak self] response -> Observable<T.Response> in
         guard let `self` = self else { return Observable.empty() }
-        let decoder = JSONDecoder()
-        do {
-          let parsedObject = try decoder.decode(T.Response.self, from: response.data)
-          return Observable.just(parsedObject)
-        } catch {
-          self.log("Couldn't parse model: \(error)")
-          let parsedError = self.tryParseError(from: response)
-          return Observable.error(parsedError)
-        }
+        return self.parseObject(T.Response.self, from: response)
       }
+      .retryWhen { [weak self] errors -> Observable<Void> in
+        guard let `self` = self else { return Observable.empty() }
+        return errors.flatMapLatest(self.plugin.tryCatchError)
+      }
+
   }
 
   /// Builds a `URLRequest` by provided `TargetType`.
@@ -85,10 +82,28 @@ public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResp
   /// - Returns: `SignalProducer` with a received `Response`. All errors are mapped into `NetworkError.unknown`.
   private func executeRequest(_ request: URLRequest) -> Observable<NetworkResponse> {
     return session.rx.response(request: request)
-      .map { response, data in NetworkResponse(statusCode: response.statusCode, data: data) }
       .catchError { error in Observable.error(NetworkError.unknown(message: "\(error)")) }
+      .map { (response, data) throws -> (HTTPURLResponse, Data) in
+        if response.statusCode == 401 {
+          throw NetworkError.unathorized
+        }
+
+        return (response, data)
+      }
+      .map { response, data in NetworkResponse(statusCode: response.statusCode, data: data) }
   }
 
+  private func parseObject<Object: Decodable>(_ objectType: Object.Type, from response: NetworkResponse) -> Observable<Object> {
+    let decoder = JSONDecoder()
+    do {
+      let parsedObject = try decoder.decode(Object.self, from: response.data)
+      return Observable.just(parsedObject)
+    } catch {
+      self.log("Couldn't parse model: \(error)")
+      let parsedError = self.tryParseError(from: response)
+      return Observable.error(parsedError)
+    }
+  }
 
   /// Tries to parse response as `ErrorResponse`.
   ///

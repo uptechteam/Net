@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 public final class NetworkLoggerPlugin: NetworkPlugin {
 
@@ -22,6 +23,10 @@ public final class NetworkLoggerPlugin: NetworkPlugin {
     let curlLogMessage = String(curlString(from: urlRequest).prefix(500))
     log(curlLogMessage)
     return urlRequest
+  }
+
+  public func tryCatchError(_ error: Error) -> Observable<Void> {
+    return Observable.just(Void())
   }
 
   public func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {

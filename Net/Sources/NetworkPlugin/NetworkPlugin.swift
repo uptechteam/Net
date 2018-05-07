@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import RxSwift
 
 public protocol NetworkPlugin {
   func modifyRequest(_ urlRequest: URLRequest) -> URLRequest
+  func tryCatchError(_ error: Error) -> Observable<Void>
   func modifyResponse(_ response: NetworkResponse) -> NetworkResponse
 }
 
@@ -22,6 +24,14 @@ public final class CompositePlugin: NetworkPlugin {
 
   public func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
     return plugins.reduce(urlRequest) { request, plugin in plugin.modifyRequest(request) }
+  }
+
+  public func tryCatchError(_ error: Error) -> Observable<Void> {
+    return plugins
+      .reduce(Observable.just(error)) { (result: Observable<Error>, plugin: NetworkPlugin) -> Observable<Error> in
+        return result.flatMapLatest(plugin.tryCatchError).map { error }
+      }
+      .map { _ in Void() }
   }
 
   public func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
