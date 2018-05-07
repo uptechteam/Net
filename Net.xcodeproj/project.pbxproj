@@ -23,6 +23,7 @@
 		8E7C247E209B371F002E7ACF /* PostJSONTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */; };
 		8E7C2480209B37D2002E7ACF /* GetTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247F209B37D2002E7ACF /* GetTargetType.swift */; };
 		8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */; };
+		8E7C24E020A0408B002E7ACF /* DefaultErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostJSONTargetType.swift; sourceTree = "<group>"; };
 		8E7C247F209B37D2002E7ACF /* GetTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTargetType.swift; sourceTree = "<group>"; };
 		8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePlugin.swift; sourceTree = "<group>"; };
+		8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultErrorResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				8E7C2467209B0904002E7ACF /* HTTPMethod.swift */,
 				8E7C2468209B0904002E7ACF /* NetworkError.swift */,
 				8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */,
+				8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */,
 				8E7C2465209B0904002E7ACF /* NetworkClient.swift */,
 				8E7C2472209B122E002E7ACF /* NetworkPlugin */,
 				8E7C247C209B3644002E7ACF /* TargetType */,
@@ -273,6 +276,7 @@
 				8E7C246C209B0904002E7ACF /* ContentType.swift in Sources */,
 				8E7C2480209B37D2002E7ACF /* GetTargetType.swift in Sources */,
 				8E7C2469209B0904002E7ACF /* NetworkPlugin.swift in Sources */,
+				8E7C24E020A0408B002E7ACF /* DefaultErrorResponse.swift in Sources */,
 				8E7C246E209B0904002E7ACF /* NetworkError.swift in Sources */,
 				8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */,
 				8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */,

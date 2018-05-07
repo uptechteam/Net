@@ -14,27 +14,35 @@ public protocol NetworkClientProtocol {
   func request<T: TargetType>(_ target: T) -> Observable<T.Response>
 }
 
-public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResponse: Decodable & CustomStringConvertible {
+public class NetworkClient: NetworkClientProtocol {
 
+  public typealias ErrorParser = (JSONDecoder, NetworkResponse) throws -> NetworkError
   public typealias ErrorLogger = (String) -> Void
+
+  public static let defaultErrorParser: ErrorParser = { decoder, response -> NetworkError in
+    let errorResponse = try decoder.decode(DefaultErrorResponse.self, from: response.data)
+    return NetworkError.apiError(code: response.statusCode, message: errorResponse.errorDescription)
+  }
+
+  public static let defaultErrorLogger: ErrorLogger = { print($0) }
 
   private let baseURL: URL
   private let plugin: CompositePlugin
   private let session: URLSession
-  private let errorResponseType: ErrorResponse.Type
+  private let errorParser: ErrorParser
   private let log: ErrorLogger
 
   public init(
     baseURL: URL,
-    errorResponseType: ErrorResponse.Type,
     plugins: [NetworkPlugin] = [],
     session: URLSession = URLSession(configuration: URLSessionConfiguration.default),
-    logger: @escaping ErrorLogger = { print($0) }
+    errorParser: @escaping ErrorParser = defaultErrorParser,
+    logger: @escaping ErrorLogger = defaultErrorLogger
     ) {
     self.baseURL = baseURL
     self.plugin = CompositePlugin(plugins: plugins)
     self.session = session
-    self.errorResponseType = errorResponseType
+    self.errorParser = errorParser
     self.log = logger
   }
 
@@ -110,8 +118,7 @@ public class NetworkClient<ErrorResponse>: NetworkClientProtocol where ErrorResp
   private func tryParseError(from response: NetworkResponse) -> NetworkError {
       let decoder = JSONDecoder()
       do {
-        let errorResponse = try decoder.decode(errorResponseType, from: response.data)
-        return NetworkError.apiError(code: response.statusCode, message: errorResponse.description)
+        return try errorParser(decoder, response)
       } catch {
         log("Couldn't init ErrorResponse from response. Will try to parse generic JSON from response")
       }
