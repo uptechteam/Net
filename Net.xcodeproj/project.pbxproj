@@ -22,6 +22,7 @@
 		8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */; };
 		8E7C247E209B371F002E7ACF /* PostJSONTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */; };
 		8E7C2480209B37D2002E7ACF /* GetTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247F209B37D2002E7ACF /* GetTargetType.swift */; };
+		8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostJSONTargetType.swift; sourceTree = "<group>"; };
 		8E7C247F209B37D2002E7ACF /* GetTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTargetType.swift; sourceTree = "<group>"; };
+		8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePlugin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7C2463209B0904002E7ACF /* NetworkPlugin.swift */,
+				8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */,
 				8E7C2473209B1259002E7ACF /* NetworkLoggerPlugin.swift */,
 			);
 			path = NetworkPlugin;
@@ -274,6 +277,7 @@
 				8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */,
 				8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */,
 				8E7C246B209B0904002E7ACF /* NetworkClient.swift in Sources */,
+				8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */,
 				8E7C247E209B371F002E7ACF /* PostJSONTargetType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

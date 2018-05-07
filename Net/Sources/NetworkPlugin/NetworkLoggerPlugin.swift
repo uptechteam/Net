@@ -25,15 +25,10 @@ public final class NetworkLoggerPlugin: NetworkPlugin {
     return urlRequest
   }
 
-  public func tryCatchError(_ error: Error) -> Observable<Void> {
-    return Observable.just(Void())
-  }
-
-  public func modifyResponse(_ response: NetworkResponse) -> NetworkResponse {
+  public func handleResponse(_ response: NetworkResponse) {
     let stringData = String(data: response.data, encoding: .utf8) ?? "Invalid"
     let message = "Response: [\(response.statusCode)] \(stringData)"
     log(message)
-    return response
   }
 
   private func curlString(from request: URLRequest) -> String {
