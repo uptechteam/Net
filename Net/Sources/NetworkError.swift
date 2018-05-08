@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NetworkError: Error {
+public enum NetworkError: Error, Equatable {
   case serializationError(message: String)
   case apiError(code: Int, message: String)
   case unathorized

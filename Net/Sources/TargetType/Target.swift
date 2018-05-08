@@ -25,7 +25,11 @@ public struct Target<Response: Decodable>: TargetType {
     contentType: ContentType? = nil,
     additionalHeaders: [String: String] = [:]
     ) {
-    self.init(path: path, method: method, bodyProvider: bodyProvider, contentType: contentType, additionalHeaders: additionalHeaders)
+    self.path = path
+    self.method = method
+    self.bodyProvider = bodyProvider
+    self.contentType = contentType
+    self.additionalHeaders = additionalHeaders
   }
 
   public init(

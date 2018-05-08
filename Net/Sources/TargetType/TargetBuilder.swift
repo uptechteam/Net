@@ -13,7 +13,7 @@ public final class TargetBuilder {
   private let jsonEncoder: JSONEncoder
   private let urlEncoder: URLEncoder
 
-  public init(jsonEncoder: JSONEncoder, urlEncoder: URLEncoder) {
+  public init(jsonEncoder: JSONEncoder = .init(), urlEncoder: URLEncoder = URLEncoder()) {
     self.jsonEncoder = jsonEncoder
     self.urlEncoder = urlEncoder
   }

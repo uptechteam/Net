@@ -22,10 +22,9 @@ internal final class CompositePlugin: NetworkPlugin {
 
   public func tryCatchError(_ error: Error) -> Observable<Void> {
     return plugins
-      .reduce(Observable.just(error)) { (result: Observable<Error>, plugin: NetworkPlugin) -> Observable<Error> in
-        return result.flatMapLatest(plugin.tryCatchError).map { error }
+      .reduce(Observable.error(error)) { (result: Observable<Void>, plugin: NetworkPlugin) -> Observable<Void> in
+        return result.catchError(plugin.tryCatchError)
       }
-      .map { _ in Void() }
   }
 
   public func handleResponse(_ response: NetworkResponse) {

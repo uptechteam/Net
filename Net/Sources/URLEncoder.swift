@@ -9,7 +9,10 @@
 import Foundation
 
 open class URLEncoder {
-  func encode(_ parameters: [String: String]) -> Data? {
+
+  public init() { }
+
+  open func encode(_ parameters: [String: String]) -> Data? {
     let urlQueryCharacterSet = CharacterSet.urlQueryAllowed
     return parameters
       .compactMap { (key, value) -> String? in

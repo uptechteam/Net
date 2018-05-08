@@ -28,7 +28,7 @@ public class NetworkClient: NetworkClientProtocol {
 
   private let baseURL: URL
   private let plugin: CompositePlugin
-  private let session: URLSession
+  private let session: NetSessionProtocol
   private let jsonDecoder: JSONDecoder
   private let errorParser: ErrorParser
   private let log: ErrorLogger
@@ -36,7 +36,7 @@ public class NetworkClient: NetworkClientProtocol {
   public init(
     baseURL: URL,
     plugins: [NetworkPlugin] = [],
-    session: URLSession = URLSession(configuration: URLSessionConfiguration.default),
+    session: NetSessionProtocol = URLSession.shared,
     jsonDecoder: JSONDecoder = JSONDecoder(),
     errorParser: @escaping ErrorParser = defaultErrorParser,
     logger: @escaping ErrorLogger = defaultErrorLogger
@@ -90,7 +90,7 @@ public class NetworkClient: NetworkClientProtocol {
   /// - Returns: `Observable` with a fetched `Response`. All errors are mapped into `NetworkError.unknown`.
   /// If status is 401 emits `NetworkError.unathorized`.
   private func executeRequest(_ request: URLRequest) -> Observable<NetworkResponse> {
-    return session.rx.response(request: request)
+    return session.fire(request: request)
       .catchError { error in Observable.error(NetworkError.unknown(message: "\(error)")) }
       .map { (response, data) throws -> (HTTPURLResponse, Data) in
         if response.statusCode == 401 {
