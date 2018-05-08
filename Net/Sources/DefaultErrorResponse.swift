@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DefaultErrorResponse: Decodable {
+internal struct DefaultErrorResponse: Decodable {
   internal let error: String
   internal let errorDescription: String
 }

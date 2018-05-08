@@ -20,10 +20,11 @@
 		8E7C2470209B0F19002E7ACF /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C246F209B0F19002E7ACF /* RxCocoa.framework */; };
 		8E7C2474209B1259002E7ACF /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2473209B1259002E7ACF /* NetworkLoggerPlugin.swift */; };
 		8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */; };
-		8E7C247E209B371F002E7ACF /* PostJSONTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */; };
-		8E7C2480209B37D2002E7ACF /* GetTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C247F209B37D2002E7ACF /* GetTargetType.swift */; };
 		8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */; };
 		8E7C24E020A0408B002E7ACF /* DefaultErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */; };
+		8EBE754D20A0705300F840C4 /* URLEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBE754C20A0705300F840C4 /* URLEncoder.swift */; };
+		8EC6A73520A183AB0089BC1A /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73420A183AB0089BC1A /* Target.swift */; };
+		8EC6A73720A1852D0089BC1A /* TargetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73620A1852D0089BC1A /* TargetBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +54,11 @@
 		8E7C246F209B0F19002E7ACF /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2473209B1259002E7ACF /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
-		8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostJSONTargetType.swift; sourceTree = "<group>"; };
-		8E7C247F209B37D2002E7ACF /* GetTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTargetType.swift; sourceTree = "<group>"; };
 		8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePlugin.swift; sourceTree = "<group>"; };
 		8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultErrorResponse.swift; sourceTree = "<group>"; };
+		8EBE754C20A0705300F840C4 /* URLEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLEncoder.swift; sourceTree = "<group>"; };
+		8EC6A73420A183AB0089BC1A /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		8EC6A73620A1852D0089BC1A /* TargetBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */,
 				8E7C24DF20A0408B002E7ACF /* DefaultErrorResponse.swift */,
 				8E7C2465209B0904002E7ACF /* NetworkClient.swift */,
+				8EBE754C20A0705300F840C4 /* URLEncoder.swift */,
 				8E7C2472209B122E002E7ACF /* NetworkPlugin */,
 				8E7C247C209B3644002E7ACF /* TargetType */,
 			);
@@ -156,8 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				8E7C2464209B0904002E7ACF /* TargetType.swift */,
-				8E7C247D209B371F002E7ACF /* PostJSONTargetType.swift */,
-				8E7C247F209B37D2002E7ACF /* GetTargetType.swift */,
+				8EC6A73420A183AB0089BC1A /* Target.swift */,
+				8EC6A73620A1852D0089BC1A /* TargetBuilder.swift */,
 			);
 			path = TargetType;
 			sourceTree = "<group>";
@@ -274,15 +277,16 @@
 				8E7C246A209B0904002E7ACF /* TargetType.swift in Sources */,
 				8E7C2474209B1259002E7ACF /* NetworkLoggerPlugin.swift in Sources */,
 				8E7C246C209B0904002E7ACF /* ContentType.swift in Sources */,
-				8E7C2480209B37D2002E7ACF /* GetTargetType.swift in Sources */,
 				8E7C2469209B0904002E7ACF /* NetworkPlugin.swift in Sources */,
 				8E7C24E020A0408B002E7ACF /* DefaultErrorResponse.swift in Sources */,
 				8E7C246E209B0904002E7ACF /* NetworkError.swift in Sources */,
+				8EC6A73520A183AB0089BC1A /* Target.swift in Sources */,
+				8EBE754D20A0705300F840C4 /* URLEncoder.swift in Sources */,
 				8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */,
 				8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */,
+				8EC6A73720A1852D0089BC1A /* TargetBuilder.swift in Sources */,
 				8E7C246B209B0904002E7ACF /* NetworkClient.swift in Sources */,
 				8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */,
-				8E7C247E209B371F002E7ACF /* PostJSONTargetType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
