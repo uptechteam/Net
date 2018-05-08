@@ -29,6 +29,8 @@
 		8EC6A73E20A190A20089BC1A /* NetSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73D20A190A20089BC1A /* NetSessionProtocol.swift */; };
 		8EC6A74020A193FD0089BC1A /* NetSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */; };
 		8EC6A74220A195D70089BC1A /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC6A74120A195D70089BC1A /* RxTest.framework */; };
+		8EC6A74620A1D0DE0089BC1A /* CompositePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A74520A1D0DE0089BC1A /* CompositePluginTests.swift */; };
+		8EC6A74920A1D57D0089BC1A /* TargetBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A74820A1D57D0089BC1A /* TargetBuilderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		8EC6A73D20A190A20089BC1A /* NetSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSessionProtocol.swift; sourceTree = "<group>"; };
 		8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSessionMock.swift; sourceTree = "<group>"; };
 		8EC6A74120A195D70089BC1A /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC6A74520A1D0DE0089BC1A /* CompositePluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePluginTests.swift; sourceTree = "<group>"; };
+		8EC6A74820A1D57D0089BC1A /* TargetBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetBuilderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +127,10 @@
 		8E7C2452209AF37A002E7ACF /* NetTests */ = {
 			isa = PBXGroup;
 			children = (
+				8EC6A74720A1D0E40089BC1A /* Mocks */,
 				8EC6A73820A18C4F0089BC1A /* NetworkClientTests.swift */,
-				8EC6A73A20A18E030089BC1A /* MockPlugin.swift */,
-				8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */,
+				8EC6A74520A1D0DE0089BC1A /* CompositePluginTests.swift */,
+				8EC6A74820A1D57D0089BC1A /* TargetBuilderTests.swift */,
 				8E7C2455209AF37A002E7ACF /* Info.plist */,
 			);
 			path = NetTests;
@@ -176,6 +181,15 @@
 				8EC6A73620A1852D0089BC1A /* TargetBuilder.swift */,
 			);
 			path = TargetType;
+			sourceTree = "<group>";
+		};
+		8EC6A74720A1D0E40089BC1A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8EC6A73A20A18E030089BC1A /* MockPlugin.swift */,
+				8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +324,8 @@
 			files = (
 				8EC6A74020A193FD0089BC1A /* NetSessionMock.swift in Sources */,
 				8EC6A73B20A18E030089BC1A /* MockPlugin.swift in Sources */,
+				8EC6A74620A1D0DE0089BC1A /* CompositePluginTests.swift in Sources */,
+				8EC6A74920A1D57D0089BC1A /* TargetBuilderTests.swift in Sources */,
 				8EC6A73920A18C4F0089BC1A /* NetworkClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

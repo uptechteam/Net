@@ -26,7 +26,7 @@ final class MockPlugin: NetworkPlugin {
   func tryCatchError(_ error: Error) -> Observable<Void> {
     tryCatchError_Called = true
     tryCatchError_PassedArgument = error
-    return tryCatchError_ReturnValue ?? Observable.just(Void())
+    return tryCatchError_ReturnValue ?? Observable.error(error)
   }
 
   var handleResponse_Called = false

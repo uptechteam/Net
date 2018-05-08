@@ -21,7 +21,7 @@ public extension NetworkPlugin {
   }
 
   func tryCatchError(_ error: Error) -> Observable<Void> {
-    return Observable.just(Void())
+    return Observable.error(error)
   }
 
   func handleResponse(_ response: NetworkResponse) { }

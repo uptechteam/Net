@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Target<Response: Decodable>: TargetType {
+public struct Target<Response: Decodable>: TargetType, Equatable {
 
   public typealias BodyProvider = () throws -> Data?
 
@@ -44,5 +44,18 @@ public struct Target<Response: Decodable>: TargetType {
 
   public func getBodyData() throws -> Data? {
     return try bodyProvider()
+  }
+}
+
+extension Target {
+  public static func == <Response>(lhs: Target<Response>, rhs: Target<Response>) -> Bool {
+    let lhsBody = try? lhs.bodyProvider()
+    let rhsBody = try? rhs.bodyProvider()
+
+    return lhs.path == rhs.path
+      && lhs.method == rhs.method
+      && lhs.contentType == rhs.contentType
+      && lhs.additionalHeaders == rhs.additionalHeaders
+      && lhsBody == rhsBody
   }
 }
