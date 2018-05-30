@@ -93,18 +93,6 @@ class NetworkClientTests: XCTestCase {
     XCTAssertEqual(result.events, [next(200, expectedResponse), completed(200)])
   }
 
-  func test_On401Code_ThrowsUnathorizedError() {
-    let mockSession = NetSessionMock()
-    let response = HTTPURLResponse(url: URL(string: "https://apple.com/hello")!, statusCode: 401, httpVersion: nil, headerFields: nil)!
-    mockSession.fireRequest_ReturnValue = Observable.just((response, Data()))
-
-    initSUT(session: mockSession)
-
-    let result = scheduler.start { self.sut.request(self.sampleTarget) }
-
-    XCTAssertEqual(result.events, [error(200, NetworkError.unathorized)])
-  }
-
   func test_OnError_UsesErrorParser() {
     var errorParserWasUsed = false
     let errorParser: NetworkClient.ErrorParser = { _, _ throws -> NetworkError in
