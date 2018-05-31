@@ -14,7 +14,7 @@ public protocol NetworkClientProtocol {
   func request<T: TargetType>(_ target: T) -> Observable<T.Response>
 }
 
-public class NetworkClient: NetworkClientProtocol {
+open class NetworkClient: NetworkClientProtocol {
 
   public typealias ErrorParser = (JSONDecoder, NetworkResponse) throws -> NetworkError
   public typealias ErrorLogger = (String) -> Void

@@ -8,14 +8,14 @@
 
 import Foundation
 
-public enum NetworkError: Error, Equatable {
+public enum NetworkError: Equatable {
   case serializationError(message: String)
   case apiError(code: Int, message: String)
   case unknown(message: String)
 }
 
-extension NetworkError: CustomStringConvertible {
-  public var description: String {
+extension NetworkError: LocalizedError {
+  public var errorDescription: String? {
     switch self {
     case let .serializationError(message):
       return "Serialization: \(message)"
