@@ -88,17 +88,9 @@ public class NetworkClient: NetworkClientProtocol {
   ///
   /// - Parameter request: `URLRequest` to execute.
   /// - Returns: `Observable` with a fetched `Response`. All errors are mapped into `NetworkError.unknown`.
-  /// If status is 401 emits `NetworkError.unathorized`.
   private func executeRequest(_ request: URLRequest) -> Observable<NetworkResponse> {
     return session.fire(request: request)
       .catchError { error in Observable.error(NetworkError.unknown(message: "\(error)")) }
-      .map { (response, data) throws -> (HTTPURLResponse, Data) in
-        if response.statusCode == 401 {
-          throw NetworkError.unathorized
-        }
-
-        return (response, data)
-      }
       .map { response, data in NetworkResponse(statusCode: response.statusCode, data: data) }
   }
 

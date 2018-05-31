@@ -41,7 +41,7 @@ class CompositePluginTests: XCTestCase {
     let plugin1 = MockPlugin()
     let plugin2 = MockPlugin()
     let composite = CompositePlugin(plugins: [plugin1, plugin2])
-    let networkError = NetworkError.unathorized
+    let networkError = NetworkError.unknown(message: "Test Error Message")
     let scheduler = TestScheduler(initialClock: 0)
 
     let result = scheduler.start { composite.tryCatchError(networkError).map { _ in true } }
@@ -56,7 +56,7 @@ class CompositePluginTests: XCTestCase {
     plugin1.tryCatchError_ReturnValue = Observable.just(Void())
     let plugin2 = MockPlugin()
     let composite = CompositePlugin(plugins: [plugin1, plugin2])
-    let networkError = NetworkError.unathorized
+    let networkError = NetworkError.unknown(message: "Test Error Message")
     let scheduler = TestScheduler(initialClock: 0)
 
     let result = scheduler.start { composite.tryCatchError(networkError).map { _ in true } }

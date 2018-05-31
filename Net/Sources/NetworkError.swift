@@ -11,7 +11,6 @@ import Foundation
 public enum NetworkError: Error, Equatable {
   case serializationError(message: String)
   case apiError(code: Int, message: String)
-  case unathorized
   case unknown(message: String)
 }
 
@@ -22,8 +21,6 @@ extension NetworkError: CustomStringConvertible {
       return "Serialization: \(message)"
     case let .apiError(_, message):
       return "\(message)"
-    case .unathorized:
-      return "Unathorized"
     case let .unknown(message):
       return "Unknown: \(message)"
     }
