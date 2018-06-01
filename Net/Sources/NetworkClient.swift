@@ -16,21 +16,13 @@ public protocol NetworkClientProtocol {
 
 public class NetworkClient: NetworkClientProtocol {
 
-  public typealias ErrorParser = (JSONDecoder, NetworkResponse) throws -> NetworkError
   public typealias ErrorLogger = (String) -> Void
-
-  public static let defaultErrorParser: ErrorParser = { decoder, response -> NetworkError in
-    let errorResponse = try decoder.decode(DefaultErrorResponse.self, from: response.data)
-    return NetworkError.apiError(code: response.statusCode, message: errorResponse.errorDescription)
-  }
-
   public static let defaultErrorLogger: ErrorLogger = { print($0) }
 
   private let baseURL: URL
   private let plugin: CompositePlugin
   private let session: NetSessionProtocol
   private let jsonDecoder: JSONDecoder
-  private let errorParser: ErrorParser
   private let log: ErrorLogger
 
   public init(
@@ -38,14 +30,12 @@ public class NetworkClient: NetworkClientProtocol {
     plugins: [NetworkPlugin] = [],
     session: NetSessionProtocol = URLSession.shared,
     jsonDecoder: JSONDecoder = JSONDecoder(),
-    errorParser: @escaping ErrorParser = defaultErrorParser,
     logger: @escaping ErrorLogger = defaultErrorLogger
     ) {
     self.baseURL = baseURL
     self.plugin = CompositePlugin(plugins: plugins)
     self.session = session
     self.jsonDecoder = jsonDecoder
-    self.errorParser = errorParser
     self.log = logger
   }
 
@@ -53,12 +43,12 @@ public class NetworkClient: NetworkClientProtocol {
     return buildRequest(from: target)
       .flatMapLatest { [weak self] request -> Observable<NetworkResponse> in
         guard let `self` = self else { return Observable.empty() }
-        return self.executeRequest(request)
+        return self.executeRequest(targetType: T.self, request)
       }
       .do(onNext: { [weak self] in self?.plugin.handleResponse($0) })
       .flatMapLatest { [weak self] response -> Observable<T.Response> in
         guard let `self` = self else { return Observable.empty() }
-        return self.parseObject(T.Response.self, from: response)
+        return self.parseObject(T.self, from: response)
       }
       .retryWhen { [weak self] errors -> Observable<Void> in
         guard let `self` = self else { return Observable.empty() }
@@ -81,17 +71,17 @@ public class NetworkClient: NetworkClientProtocol {
       request.httpBody = try target.getBodyData()
       let modifiedRequest = self.plugin.modifyRequest(request)
       return Observable.just(modifiedRequest)
-      }.catchError { error in Observable.error(NetworkError.serializationError(message: "\(error)")) }
+      }.catchError { error in Observable.error(NetworkError<T.ErrorResponse>.serializationError(message: "\(error)")) }
   }
 
   /// Executes the request
   ///
   /// - Parameter request: `URLRequest` to execute.
   /// - Returns: `Observable` with a fetched `Response`. All errors are mapped into `NetworkError.unknown`.
-  private func executeRequest(_ request: URLRequest) -> Observable<NetworkResponse> {
+  private func executeRequest<T: TargetType>(targetType: T.Type = T.self, _ request: URLRequest) -> Observable<NetworkResponse> {
     return session.fire(request: request)
-      .catchError { error in Observable.error(NetworkError.unknown(message: "\(error)")) }
-      .map { response, data in NetworkResponse(statusCode: response.statusCode, data: data) }
+      .catchError { error in Observable.error(NetworkError<T.ErrorResponse>.sessionError(message: error.localizedDescription)) }
+      .map { (arg) -> NetworkResponse in let (response, data) = arg; return NetworkResponse(statusCode: response.statusCode, data: data) }
   }
 
   /// Parses object into the `Object.Type`.
@@ -100,13 +90,13 @@ public class NetworkClient: NetworkClientProtocol {
   ///   - objectType: `Decodable` type of the object to parse the response.
   ///   - response: `NetworkResponse` to parse the object.
   /// - Returns: `Observable` of the `Object`. If `Object` couldn't be created tries to parse the error.
-  private func parseObject<Object: Decodable>(_ objectType: Object.Type, from response: NetworkResponse) -> Observable<Object> {
+  private func parseObject<T: TargetType>(_ targetType: T.Type, from response: NetworkResponse) -> Observable<T.Response> {
     do {
-      let parsedObject = try self.jsonDecoder.decode(Object.self, from: response.data)
+      let parsedObject = try self.jsonDecoder.decode(T.Response.self, from: response.data)
       return Observable.just(parsedObject)
     } catch {
       self.log("Couldn't parse model: \(error)")
-      let parsedError = self.tryParseError(from: response)
+      let parsedError = self.tryParseError(errorType: T.ErrorResponse.self, from: response)
       return Observable.error(parsedError)
     }
   }
@@ -116,23 +106,24 @@ public class NetworkClient: NetworkClientProtocol {
   /// - Parameter response: `Response` object to parse.
   /// - Returns: `apiError` if could parse error from `response` or status code is unsuccessfull,
   /// `serializationError` if status code is successfull,
-  private func tryParseError(from response: NetworkResponse) -> NetworkError {
+  private func tryParseError<E: DecodableError>(errorType: E.Type = E.self, from response: NetworkResponse) -> NetworkError<E> {
       do {
-        return try errorParser(jsonDecoder, response)
+        let apiErroResponse = try jsonDecoder.decode(E.self, from: response.data)
+        return NetworkError.apiError(apiErroResponse)
       } catch {
         log("Couldn't init ErrorResponse from response. Will try to parse generic JSON from response")
       }
 
       do {
         let responseJSON = try JSONSerialization.jsonObject(with: response.data, options: [])
-        return NetworkError.apiError(code: response.statusCode, message: "\(responseJSON)")
+        return NetworkError.serializationError(message: "\(responseJSON)")
       } catch {
         log("Couldn't init any JSON object from response.")
         switch response.statusCode {
         case 200, 201:
           return NetworkError.serializationError(message: "Couldn't parse response: \(error)")
         default:
-          return NetworkError.apiError(code: response.statusCode, message: "\(error)")
+          return NetworkError.unknown(response)
         }
       }
   }

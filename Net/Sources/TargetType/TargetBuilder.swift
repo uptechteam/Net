@@ -18,12 +18,12 @@ public final class TargetBuilder {
     self.urlEncoder = urlEncoder
   }
 
-  public func makeGetTarget<Response>(
+  public func makeGetTarget<Response, ErrorResponse>(
     responseType: Response.Type = Response.self,
     path: String,
     parameters: [String: String] = [:],
     additionalHeaders: [String: String] = [:]
-    ) -> Target<Response> {
+    ) -> Target<Response, ErrorResponse> {
     return Target(
       path: path,
       method: .get,
@@ -33,12 +33,12 @@ public final class TargetBuilder {
     )
   }
 
-  public func makePostJSONTarget<Value: Encodable, Response>(
+  public func makePostJSONTarget<Value: Encodable, Response, ErrorResponse>(
     responseType: Response.Type = Response.self,
     path: String,
     value: Value,
     additionalHeaders: [String: String] = [:]
-    ) -> Target<Response> {
+    ) -> Target<Response, ErrorResponse> {
     return Target(
       path: path,
       method: .post,

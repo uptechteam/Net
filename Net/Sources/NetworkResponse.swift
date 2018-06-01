@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NetworkResponse {
+public struct NetworkResponse: Equatable {
   public let statusCode: Int
   public let data: Data
 }
