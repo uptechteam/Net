@@ -81,7 +81,7 @@ public class NetworkClient: NetworkClientProtocol {
   private func executeRequest<T: TargetType>(targetType: T.Type = T.self, _ request: URLRequest) -> Observable<NetworkResponse> {
     return session.fire(request: request)
       .catchError { error in Observable.error(NetworkError<T.ErrorResponse>.sessionError(message: error.localizedDescription)) }
-      .map { (arg) -> NetworkResponse in let (response, data) = arg; return NetworkResponse(statusCode: response.statusCode, data: data) }
+      .map { (response, data) in NetworkResponse(statusCode: response.statusCode, data: data) }
   }
 
   /// Parses object into the `Object.Type`.
