@@ -11,6 +11,7 @@ import Foundation
 public enum NetworkError: Error, Equatable {
   case serializationError(message: String)
   case apiError(code: Int, message: String)
+  case url(message: String)
   case unknown(message: String)
 }
 
@@ -21,6 +22,8 @@ extension NetworkError: CustomStringConvertible {
       return "Serialization: \(message)"
     case let .apiError(_, message):
       return "\(message)"
+    case let .url(message):
+      return "URL: \(message)"
     case let .unknown(message):
       return "Unknown: \(message)"
     }
