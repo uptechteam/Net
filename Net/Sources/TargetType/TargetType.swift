@@ -13,6 +13,7 @@ public protocol TargetType {
 
   var path: String { get }
   var method: HTTPMethod { get }
+  var queryItems: [URLQueryItem] { get }
   var contentType: ContentType? { get }
   var additionalHeaders: [String: String] { get }
   func getBodyData() throws -> Data?
