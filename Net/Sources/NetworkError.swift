@@ -16,7 +16,7 @@ public enum NetworkError<APIErrorResponse: DecodableError> {
   case unknown(NetworkResponse)
 }
 
-extension NetworkError: Error {
+extension NetworkError: LocalizedError {
   public var errorDescription: String? {
     switch self {
     case let .sessionError(message):
