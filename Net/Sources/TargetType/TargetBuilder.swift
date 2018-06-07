@@ -27,6 +27,7 @@ public final class TargetBuilder {
     return Target(
       path: path,
       method: .get,
+      queryItems: parameters.map { URLQueryItem(name: $0.key, value: $0.value) },
       bodyProvider: { self.urlEncoder.encode(parameters) },
       contentType: Net.ContentType.urlEncoded,
       additionalHeaders: additionalHeaders
@@ -42,6 +43,7 @@ public final class TargetBuilder {
     return Target(
       path: path,
       method: .post,
+      queryItems: [],
       bodyProvider: { try self.jsonEncoder.encode(value) },
       contentType: Net.ContentType.json,
       additionalHeaders: additionalHeaders

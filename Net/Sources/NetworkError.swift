@@ -8,14 +8,15 @@
 
 import Foundation
 
-public enum NetworkError<APIErrorResponse: Decodable & Error> {
+public enum NetworkError<APIErrorResponse: DecodableError> {
   case serializationError(message: String)
   case apiError(APIErrorResponse)
   case sessionError(message: String)
+  case url(message: String)
   case unknown(NetworkResponse)
 }
 
-extension NetworkError: LocalizedError {
+extension NetworkError: Error {
   public var errorDescription: String? {
     switch self {
     case let .sessionError(message):
@@ -26,6 +27,8 @@ extension NetworkError: LocalizedError {
       return "\(apiErrorResponse.localizedDescription)"
     case let .unknown(response):
       return "Unknown: \(response)"
+    case let .url(message):
+      return "URL: \(message)"
     }
   }
 }

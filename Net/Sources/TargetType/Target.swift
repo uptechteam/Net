@@ -8,11 +8,12 @@
 
 import Foundation
 
-public struct Target<Response: Decodable, ErrorResponse: Decodable & Error>: TargetType, Equatable {
+public struct Target<Response: Decodable, ErrorResponse: DecodableError>: TargetType, Equatable {
 
   public typealias BodyProvider = () throws -> Data?
 
   public let path: String
+  public let queryItems: [URLQueryItem]
   public let method: HTTPMethod
   public let bodyProvider: BodyProvider
   public let contentType: ContentType?
@@ -21,12 +22,14 @@ public struct Target<Response: Decodable, ErrorResponse: Decodable & Error>: Tar
   public init(
     path: String,
     method: HTTPMethod,
+    queryItems: [URLQueryItem],
     bodyProvider: @escaping BodyProvider = { nil },
     contentType: ContentType? = nil,
     additionalHeaders: [String: String] = [:]
     ) {
     self.path = path
     self.method = method
+    self.queryItems = queryItems
     self.bodyProvider = bodyProvider
     self.contentType = contentType
     self.additionalHeaders = additionalHeaders
@@ -35,11 +38,19 @@ public struct Target<Response: Decodable, ErrorResponse: Decodable & Error>: Tar
   public init(
     path: String,
     method: Net.HTTPMethod,
+    queryItems: [URLQueryItem] = [],
     body: Data? = nil,
     contentType: Net.ContentType? = .urlEncoded,
     additionalHeaders: [String: String] = [:]
     ) {
-    self.init(path: path, method: method, bodyProvider: { body }, contentType: contentType, additionalHeaders: additionalHeaders)
+    self.init(
+      path: path,
+      method: method,
+      queryItems: queryItems,
+      bodyProvider: { body },
+      contentType: contentType,
+      additionalHeaders: additionalHeaders
+    )
   }
 
   public func getBodyData() throws -> Data? {

@@ -14,7 +14,7 @@ public protocol NetworkClientProtocol {
   func request<T: TargetType>(_ target: T) -> Observable<T.Response>
 }
 
-public class NetworkClient: NetworkClientProtocol {
+open class NetworkClient: NetworkClientProtocol {
 
   public typealias ErrorLogger = (String) -> Void
   public static let defaultErrorLogger: ErrorLogger = { print($0) }
@@ -63,7 +63,21 @@ public class NetworkClient: NetworkClientProtocol {
   private func buildRequest<T: TargetType>(from target: T) -> Observable<URLRequest> {
     return Observable.deferred { [weak self] () -> Observable<URLRequest> in
       guard let `self` = self else { return .empty() }
-      let fullURL = self.baseURL.appendingPathComponent(target.path)
+
+      guard var urlComponents = URLComponents(url: self.baseURL.appendingPathComponent(target.path), resolvingAgainstBaseURL: false) else {
+        throw NetworkError<T.ErrorResponse>.url(
+          message: "Couldn't create the URLComponents from a base URL '\(self.baseURL)' and a path component '\(target.path)'"
+        )
+      }
+
+      if !target.queryItems.isEmpty {
+        urlComponents.queryItems = target.queryItems
+      }
+
+      guard let fullURL = urlComponents.url else {
+        throw NetworkError<T.ErrorResponse>.url(message: "Couldn't create an url from: \(urlComponents)")
+      }
+
       var request = URLRequest(url: fullURL)
       request.httpMethod = target.method.rawValue
       request.setValue(target.contentType?.rawValue, forHTTPHeaderField: "Content-Type")
