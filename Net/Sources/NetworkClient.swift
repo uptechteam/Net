@@ -14,7 +14,7 @@ public protocol NetworkClientProtocol {
   func request<T: TargetType>(_ target: T) -> Observable<T.Response>
 }
 
-open class NetworkClient: NetworkClientProtocol {
+public class NetworkClient: NetworkClientProtocol {
 
   public typealias ErrorLogger = (String) -> Void
   public static let defaultErrorLogger: ErrorLogger = { print($0) }
