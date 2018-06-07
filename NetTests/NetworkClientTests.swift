@@ -76,6 +76,31 @@ class NetworkClientTests: XCTestCase {
     XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
   }
 
+  func test_WithTargetWithQueryItems_BuildsValidRequest() {
+    let target = Target<Response>(
+      path: "/hello",
+      method: .get,
+      queryItems: [URLQueryItem(name: "parameter", value: "10")],
+      body: sampleData,
+      contentType: ContentType.json,
+      additionalHeaders: ["Hello": "Header"]
+    )
+
+    initSUT(session: mockSession)
+
+    _ = scheduler.start { self.sut.request(target) }
+
+    guard let builtRequest = mockSession.fireRequest_PassedArgument else {
+      return XCTFail("The build request wasn't passed to the plugin")
+    }
+
+    let expectedURL = URL(string: "https://apple.com/hello?parameter=10")!
+    var expectedRequest = URLRequest(url: expectedURL)
+    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.rawValue)
+    expectedRequest.addValue("Header", forHTTPHeaderField: "Hello")
+    XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
+  }
+
   func test_ExecutesRequest() {
     initSUT()
 
