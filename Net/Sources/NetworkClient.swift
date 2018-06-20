@@ -80,7 +80,7 @@ public class NetworkClient: NetworkClientProtocol {
 
       var request = URLRequest(url: fullURL)
       request.httpMethod = target.method.rawValue
-      request.setValue(target.contentType?.rawValue, forHTTPHeaderField: "Content-Type")
+      request.setValue(target.contentType?.header, forHTTPHeaderField: "Content-Type")
       target.additionalHeaders.forEach { key, value in request.setValue(value, forHTTPHeaderField: key) }
       request.httpBody = try target.getBodyData()
       let modifiedRequest = self.plugin.modifyRequest(request)

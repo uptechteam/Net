@@ -65,7 +65,7 @@ extension Target {
 
     return lhs.path == rhs.path
       && lhs.method == rhs.method
-      && lhs.contentType == rhs.contentType
+      && lhs.contentType?.header == rhs.contentType?.header
       && lhs.additionalHeaders == rhs.additionalHeaders
       && lhsBody == rhsBody
   }

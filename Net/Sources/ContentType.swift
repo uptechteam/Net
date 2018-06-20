@@ -8,8 +8,21 @@
 
 import Foundation
 
-public enum ContentType: String {
-  case json = "application/json; charset=utf-8"
-  case urlEncoded = "application/x-www-form-urlencoded"
-  case formData = "multipart/form-data"
+public enum ContentType {
+  case json
+  case urlEncoded
+  case formData(boundary: String)
+}
+
+extension ContentType {
+  var header: String {
+    switch self {
+    case let .formData(boundary):
+      return "multipart/form-data; boundary=\(boundary)"
+    case .urlEncoded:
+      return "application/x-www-form-urlencoded"
+    case .json:
+      return "application/json; charset=utf-8"
+    }
+  }
 }
