@@ -17,6 +17,15 @@ public enum NetworkError<APIErrorResponse: DecodableError> {
 }
 
 extension NetworkError: LocalizedError {
+
+  public var apiErrorResponse: APIErrorResponse? {
+    switch self {
+    case .apiError(let response):
+      return response
+    default: return nil
+    }
+  }
+
   public var errorDescription: String? {
     switch self {
     case let .sessionError(message):
