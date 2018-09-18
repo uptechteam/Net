@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F999B1A2151225F00C30C00 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F999B192151225F00C30C00 /* RxSwift.framework */; };
+		5F999B1C2151226F00C30C00 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F999B1B2151226F00C30C00 /* RxCocoa.framework */; };
+		5F999B1E2151232D00C30C00 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F999B1D2151232D00C30C00 /* RxTest.framework */; };
 		8E7C244F209AF37A002E7ACF /* Net.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C2445209AF37A002E7ACF /* Net.framework */; };
 		8E7C2456209AF37A002E7ACF /* Net.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E7C2448209AF37A002E7ACF /* Net.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8E7C2461209AF3CA002E7ACF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C2460209AF3CA002E7ACF /* RxSwift.framework */; };
 		8E7C2469209B0904002E7ACF /* NetworkPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2463209B0904002E7ACF /* NetworkPlugin.swift */; };
 		8E7C246A209B0904002E7ACF /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2464209B0904002E7ACF /* TargetType.swift */; };
 		8E7C246B209B0904002E7ACF /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2465209B0904002E7ACF /* NetworkClient.swift */; };
 		8E7C246C209B0904002E7ACF /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2466209B0904002E7ACF /* ContentType.swift */; };
 		8E7C246D209B0904002E7ACF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2467209B0904002E7ACF /* HTTPMethod.swift */; };
 		8E7C246E209B0904002E7ACF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2468209B0904002E7ACF /* NetworkError.swift */; };
-		8E7C2470209B0F19002E7ACF /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7C246F209B0F19002E7ACF /* RxCocoa.framework */; };
 		8E7C2474209B1259002E7ACF /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2473209B1259002E7ACF /* NetworkLoggerPlugin.swift */; };
 		8E7C2479209B15A6002E7ACF /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */; };
 		8E7C24DE20A03FF3002E7ACF /* CompositePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */; };
@@ -28,7 +29,6 @@
 		8EC6A73B20A18E030089BC1A /* MockPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73A20A18E030089BC1A /* MockPlugin.swift */; };
 		8EC6A73E20A190A20089BC1A /* NetSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73D20A190A20089BC1A /* NetSessionProtocol.swift */; };
 		8EC6A74020A193FD0089BC1A /* NetSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */; };
-		8EC6A74220A195D70089BC1A /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC6A74120A195D70089BC1A /* RxTest.framework */; };
 		8EC6A74620A1D0DE0089BC1A /* CompositePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A74520A1D0DE0089BC1A /* CompositePluginTests.swift */; };
 		8EC6A74920A1D57D0089BC1A /* TargetBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6A74820A1D57D0089BC1A /* TargetBuilderTests.swift */; };
 /* End PBXBuildFile section */
@@ -44,19 +44,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F999B192151225F00C30C00 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		5F999B1B2151226F00C30C00 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		5F999B1D2151232D00C30C00 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		8E7C2445209AF37A002E7ACF /* Net.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Net.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2448209AF37A002E7ACF /* Net.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Net.h; sourceTree = "<group>"; };
 		8E7C2449209AF37A002E7ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E7C244E209AF37A002E7ACF /* NetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2455209AF37A002E7ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E7C2460209AF3CA002E7ACF /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2463209B0904002E7ACF /* NetworkPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkPlugin.swift; sourceTree = "<group>"; };
 		8E7C2464209B0904002E7ACF /* TargetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		8E7C2465209B0904002E7ACF /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		8E7C2466209B0904002E7ACF /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		8E7C2467209B0904002E7ACF /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8E7C2468209B0904002E7ACF /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		8E7C246F209B0F19002E7ACF /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C2473209B1259002E7ACF /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E7C2478209B15A6002E7ACF /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		8E7C24DD20A03FF3002E7ACF /* CompositePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePlugin.swift; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		8EC6A73A20A18E030089BC1A /* MockPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlugin.swift; sourceTree = "<group>"; };
 		8EC6A73D20A190A20089BC1A /* NetSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSessionProtocol.swift; sourceTree = "<group>"; };
 		8EC6A73F20A193FD0089BC1A /* NetSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSessionMock.swift; sourceTree = "<group>"; };
-		8EC6A74120A195D70089BC1A /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC6A74520A1D0DE0089BC1A /* CompositePluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePluginTests.swift; sourceTree = "<group>"; };
 		8EC6A74820A1D57D0089BC1A /* TargetBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetBuilderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,8 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E7C2461209AF3CA002E7ACF /* RxSwift.framework in Frameworks */,
-				8E7C2470209B0F19002E7ACF /* RxCocoa.framework in Frameworks */,
+				5F999B1C2151226F00C30C00 /* RxCocoa.framework in Frameworks */,
+				5F999B1A2151225F00C30C00 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EC6A74220A195D70089BC1A /* RxTest.framework in Frameworks */,
+				5F999B1E2151232D00C30C00 /* RxTest.framework in Frameworks */,
 				8E7C244F209AF37A002E7ACF /* Net.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,9 +139,9 @@
 		8E7C245F209AF3CA002E7ACF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8EC6A74120A195D70089BC1A /* RxTest.framework */,
-				8E7C246F209B0F19002E7ACF /* RxCocoa.framework */,
-				8E7C2460209AF3CA002E7ACF /* RxSwift.framework */,
+				5F999B1D2151232D00C30C00 /* RxTest.framework */,
+				5F999B1B2151226F00C30C00 /* RxCocoa.framework */,
+				5F999B192151225F00C30C00 /* RxSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -399,6 +399,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -455,6 +456,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -472,6 +474,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Net/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -500,6 +506,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Net/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -521,7 +531,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E6856DRNEB;
+				DEVELOPMENT_TEAM = 29286X6DM7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NetTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -540,7 +554,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E6856DRNEB;
+				DEVELOPMENT_TEAM = 29286X6DM7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NetTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

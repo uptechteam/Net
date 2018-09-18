@@ -72,7 +72,7 @@ class NetworkClientTests: XCTestCase {
     }
 
     var expectedRequest = URLRequest(url: URL(string: "https://apple.com/hello")!)
-    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.rawValue)
+    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.header)
     expectedRequest.addValue("Header", forHTTPHeaderField: "Hello")
     XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
   }
@@ -97,7 +97,7 @@ class NetworkClientTests: XCTestCase {
 
     let expectedURL = URL(string: "https://apple.com/hello?parameter=10")!
     var expectedRequest = URLRequest(url: expectedURL)
-    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.rawValue)
+    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.header)
     expectedRequest.addValue("Header", forHTTPHeaderField: "Hello")
     XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
   }
