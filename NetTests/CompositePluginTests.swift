@@ -13,6 +13,12 @@ import RxTest
 
 class CompositePluginTests: XCTestCase {
 
+  struct TestError: DecodableError {
+    let code: Int
+  }
+
+  let networkResponse = NetworkResponse(statusCode: 100, data: Data())
+
   func test_ModifyRequest() {
     let plugin1 = MockPlugin()
     let plugin2 = MockPlugin()
@@ -41,7 +47,7 @@ class CompositePluginTests: XCTestCase {
     let plugin1 = MockPlugin()
     let plugin2 = MockPlugin()
     let composite = CompositePlugin(plugins: [plugin1, plugin2])
-    let networkError = NetworkError.unknown(message: "Test Error Message")
+    let networkError = NetworkError<TestError>.unknown(networkResponse)
     let scheduler = TestScheduler(initialClock: 0)
 
     let result = scheduler.start { composite.tryCatchError(networkError).map { _ in true } }
@@ -56,7 +62,7 @@ class CompositePluginTests: XCTestCase {
     plugin1.tryCatchError_ReturnValue = Observable.just(Void())
     let plugin2 = MockPlugin()
     let composite = CompositePlugin(plugins: [plugin1, plugin2])
-    let networkError = NetworkError.unknown(message: "Test Error Message")
+    let networkError = NetworkError<TestError>.unknown(networkResponse)
     let scheduler = TestScheduler(initialClock: 0)
 
     let result = scheduler.start { composite.tryCatchError(networkError).map { _ in true } }

@@ -17,8 +17,12 @@ private struct Response: Codable, Equatable {
 
 class NetworkClientTests: XCTestCase {
 
+  struct TestError: DecodableError {
+    let error: String
+  }
+
   private let sampleData = try! JSONEncoder().encode(Response(message: "Hello World!"))
-  private let sampleTarget = TargetBuilder().makeGetTarget(responseType: Response.self, path: "/hello")
+  private let sampleTarget: Target<Response, TestError> = TargetBuilder().makeGetTarget(responseType: Response.self, path: "/hello")
   private let sampleResponse = HTTPURLResponse(url: URL(string: "https://apple.com/hello")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
 
   private var sut: NetworkClient!
@@ -37,14 +41,12 @@ class NetworkClientTests: XCTestCase {
     plugins: [NetworkPlugin]? = nil,
     session: NetSessionProtocol? = nil,
     jsonDecoder: JSONDecoder? = nil,
-    errorParser: NetworkClient.ErrorParser? = nil,
     errorLogger: NetworkClient.ErrorLogger? = nil
     ) {
     let baseURL = baseURL ?? URL(string: "https://apple.com")!
     let plugins = plugins ?? [NetworkPlugin]()
     let session = session ?? mockSession!
     let jsonDecoder = jsonDecoder ?? JSONDecoder()
-    let errorParser = errorParser ?? NetworkClient.defaultErrorParser
     let errorLogger = errorLogger ?? NetworkClient.defaultErrorLogger
 
     sut = NetworkClient(
@@ -52,13 +54,12 @@ class NetworkClientTests: XCTestCase {
       plugins: plugins,
       session: session,
       jsonDecoder: jsonDecoder,
-      errorParser: errorParser,
       logger: errorLogger
     )
   }
 
   func test_BuildsValidRequest() {
-    let target = Target<Response>(
+    let target = Target<Response, TestError>(
       path: "/hello", method: .get, body: sampleData, contentType: ContentType.json, additionalHeaders: ["Hello": "Header"]
     )
 
@@ -71,13 +72,13 @@ class NetworkClientTests: XCTestCase {
     }
 
     var expectedRequest = URLRequest(url: URL(string: "https://apple.com/hello")!)
-    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.rawValue)
+    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.header)
     expectedRequest.addValue("Header", forHTTPHeaderField: "Hello")
     XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
   }
 
   func test_WithTargetWithQueryItems_BuildsValidRequest() {
-    let target = Target<Response>(
+    let target = Target<Response, TestError>(
       path: "/hello",
       method: .get,
       queryItems: [URLQueryItem(name: "parameter", value: "10")],
@@ -96,7 +97,7 @@ class NetworkClientTests: XCTestCase {
 
     let expectedURL = URL(string: "https://apple.com/hello?parameter=10")!
     var expectedRequest = URLRequest(url: expectedURL)
-    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.rawValue)
+    expectedRequest.addValue("Content-Type", forHTTPHeaderField: ContentType.json.header)
     expectedRequest.addValue("Header", forHTTPHeaderField: "Hello")
     XCTAssertEqual(builtRequest.debugDescription, expectedRequest.debugDescription)
   }
@@ -118,23 +119,6 @@ class NetworkClientTests: XCTestCase {
     XCTAssertEqual(result.events, [next(200, expectedResponse), completed(200)])
   }
 
-  func test_OnError_UsesErrorParser() {
-    var errorParserWasUsed = false
-    let errorParser: NetworkClient.ErrorParser = { _, _ throws -> NetworkError in
-      errorParserWasUsed = true
-      return NetworkError.unknown(message: "Hello There")
-    }
-
-    let mockSession = NetSessionMock()
-    mockSession.fireRequest_ReturnValue = Observable.just((sampleResponse, Data()))
-
-    initSUT(session: mockSession, errorParser: errorParser)
-
-    let result = scheduler.start { self.sut.request(self.sampleTarget) }
-    XCTAssertEqual(result.events, [error(200, NetworkError.unknown(message: "Hello There"))])
-    XCTAssertTrue(errorParserWasUsed)
-  }
-
   func test_OnErrorIfErrorParserFails_DecodesJSON() {
     let errorJSON = ["error": "hello world"]
     let data = try! JSONSerialization.data(withJSONObject: errorJSON, options: [])
@@ -146,8 +130,7 @@ class NetworkClientTests: XCTestCase {
 
     let result = scheduler.start { self.sut.request(self.sampleTarget) }
 
-    let expectedMessage = "\(try! JSONSerialization.jsonObject(with: data, options: []))"
-    let expectedError = NetworkError.apiError(code: sampleResponse.statusCode, message: expectedMessage)
+    let expectedError = NetworkError<TestError>.apiError(TestError(error: "hello world"))
     XCTAssertEqual(result.events, [error(200, expectedError)])
   }
 
@@ -160,7 +143,7 @@ class NetworkClientTests: XCTestCase {
     let result = scheduler.start { self.sut.request(self.sampleTarget) }
 
     let expectedErrorMessage = "Couldn't parse response: Error Domain=NSCocoaErrorDomain Code=3840 \"No value.\" UserInfo={NSDebugDescription=No value.}"
-    XCTAssertEqual(result.events, [error(200, NetworkError.serializationError(message: expectedErrorMessage))])
+    XCTAssertEqual(result.events, [error(200, NetworkError<TestError>.serializationError(message: expectedErrorMessage))])
   }
 
   func test_CallsPluginsMethods() {

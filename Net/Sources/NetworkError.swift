@@ -8,24 +8,36 @@
 
 import Foundation
 
-public enum NetworkError: Error, Equatable {
+public enum NetworkError<APIErrorResponse: DecodableError> {
   case serializationError(message: String)
-  case apiError(code: Int, message: String)
+  case apiError(APIErrorResponse)
+  case sessionError(message: String)
   case url(message: String)
-  case unknown(message: String)
+  case unknown(NetworkResponse)
 }
 
-extension NetworkError: CustomStringConvertible {
-  public var description: String {
+extension NetworkError: LocalizedError {
+
+  public var apiErrorResponse: APIErrorResponse? {
     switch self {
+    case .apiError(let response):
+      return response
+    default: return nil
+    }
+  }
+
+  public var errorDescription: String? {
+    switch self {
+    case let .sessionError(message):
+      return message
     case let .serializationError(message):
       return "Serialization: \(message)"
-    case let .apiError(_, message):
-      return "\(message)"
+    case let .apiError(apiErrorResponse):
+      return "\(apiErrorResponse.localizedDescription)"
+    case let .unknown(response):
+      return "Unknown: \(response)"
     case let .url(message):
       return "URL: \(message)"
-    case let .unknown(message):
-      return "Unknown: \(message)"
     }
   }
 }

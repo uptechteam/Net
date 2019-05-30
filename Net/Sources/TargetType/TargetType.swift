@@ -8,8 +8,11 @@
 
 import Foundation
 
+public typealias DecodableError = Decodable & Error
+
 public protocol TargetType {
   associatedtype Response: Decodable
+  associatedtype ErrorResponse: DecodableError
 
   var path: String { get }
   var method: HTTPMethod { get }
