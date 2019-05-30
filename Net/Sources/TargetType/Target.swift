@@ -60,8 +60,8 @@ public struct Target<Response: Decodable, ErrorResponse: DecodableError>: Target
 
 extension Target {
   public static func == <Response>(lhs: Target<Response, ErrorResponse>, rhs: Target<Response, ErrorResponse>) -> Bool {
-    let lhsBody = try? lhs.bodyProvider()
-    let rhsBody = try? rhs.bodyProvider()
+    let lhsBody = ((try? lhs.bodyProvider()) as Data??)
+    let rhsBody = ((try? rhs.bodyProvider()) as Data??)
 
     return lhs.path == rhs.path
       && lhs.method == rhs.method
